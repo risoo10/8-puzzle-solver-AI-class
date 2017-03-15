@@ -5,6 +5,7 @@ package sample;
  */
 public class RozdielnePozicieHeurestika implements Heurestika {
 
+
     @Override
     public int vyhodnotStav(Stav stav, Stav ciel) {
         int result = 0;

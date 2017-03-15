@@ -11,6 +11,7 @@ public class Algoritmus {
     private Stav ciel;
     private Heurestika heurestika;
     private Stav result;
+    private Integer maxPocetStavov;
 
     // Min halda ktora porovnava prvky v halde podla priority
     // priorita je ciselne ohodnotenie stavu, ktore vyhodnoti heurestika
@@ -32,16 +33,20 @@ public class Algoritmus {
 
     public void hladajRiesenie(){
 
+        maxPocetStavov = 0;
+
         // Pridame pociatocny stav do fronty
         pociatok.setPriorita(heurestika.vyhodnotStav(pociatok, ciel));
         pociatok.setPredchodca(null);
         fronta.add(pociatok);
 
         while(!fronta.isEmpty()) {
+
+            // Maximalny pocet stavov
+            maxPocetStavov = Integer.max(maxPocetStavov, fronta.size());
+
             Stav stav = fronta.poll();
 
-            // Pomocne vypisy
-            System.out.println("fronta : "+ fronta.size());
 
             // Ak je finalny stav
             if (stav.getPriorita() == 0) {
@@ -70,6 +75,11 @@ public class Algoritmus {
                 }
             }
         }
+    }
+
+
+    public Integer pocetPrehladanychStavov(){
+        return maxPocetStavov;
     }
 
 

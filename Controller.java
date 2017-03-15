@@ -1,21 +1,31 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
 public class Controller {
 
+    private ObservableList<String> moznosti =
+            FXCollections.observableArrayList(
+                    "Manhattanska vzdialenosť",
+                    "Počet rozdielnych políčok"
+            );
+    @FXML
+    private TextField vstupnytext;
 
     @FXML
-    TextField vstupnytext;
+    private TextField vystupnytext;
 
     @FXML
-    TextField vystupnytext;
+    private Label outputLabel;
 
     @FXML
-    Label outputLabel;
+    private ComboBox<String> heurestikaBox;
 
 
     public void zacniVypocet(){
@@ -32,12 +42,23 @@ public class Controller {
 
         algo.hladajRiesenie();
 
+
+
         if(algo.getResult() != null){
-            outputLabel.setText("Nasli sme riesenie.");
+            outputLabel.setText("Naslo sa riesenie. \nBolo prehladanych " + algo.pocetPrehladanychStavov() + " stavov. \nPoužitá heurestika : " + heurestikaBox.getValue());
         } else {
-            outputLabel.setText("Preskumali sme vsetky stavy. \n Riesenie neexistuje.");
+            outputLabel.setText("Riesenie neexistuje. \nBolo prehladanych " + algo.pocetPrehladanychStavov() + " stavov.");
         }
 
+
+    }
+
+    @FXML
+    public void initialize(){
+
+        // Inicializuj combo BOX
+        heurestikaBox.getItems().addAll(moznosti);
+        heurestikaBox.getSelectionModel().selectFirst();
 
     }
 
