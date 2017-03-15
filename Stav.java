@@ -2,14 +2,13 @@ package sample;
 
 import com.sun.xml.internal.fastinfoset.util.CharArray;
 
-/**
- * Created by Riso on 3/12/2017.
- */
 public class Stav {
 
 
 
     private int[][] hlavolam = new int[3][3];
+
+
     private Stav predchodca;
     private int priorita;
 
@@ -47,7 +46,7 @@ public class Stav {
         }
 
         // posun hore
-        if(suradniceMedzera[1] != 3){
+        if(suradniceMedzera[1] != 2){
             result[1] = new Stav(klonujVymen(
                     suradniceMedzera[0],
                     suradniceMedzera[1],
@@ -71,7 +70,7 @@ public class Stav {
         }
 
         // posun dolava
-        if(suradniceMedzera[0] != 3){
+        if(suradniceMedzera[0] != 2){
             result[3] = new Stav(klonujVymen(
                     suradniceMedzera[0],
                     suradniceMedzera[1],
@@ -100,9 +99,24 @@ public class Stav {
     }
 
     public void printHlavolam(){
-        for(int i=0; i<9; i++){
-            System.out.println(this.hlavolam[i/3][i%3]);
+        String result = "";
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                result += hlavolam[i][j];
+            }
+            result += '\n';
         }
+        System.out.print(result);
+    }
+
+    public String unikatnyHash(){
+        String result = "";
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++) {
+                result += hlavolam[i][j];
+            }
+        }
+        return result;
     }
 
 
@@ -115,6 +129,13 @@ public class Stav {
     }
     public void setPriorita(int priorita) { this.priorita = priorita; }
 
+    public void setPredchodca(Stav predchodca) {
+        this.predchodca = predchodca;
+    }
+
+    public Stav getPredchodca() {
+        return predchodca;
+    }
 
     public int[][] klonujVymen(int medzeraX, int medzeraY, int x2, int y2){
         int[][] novyHlavolam = new int[3][3];

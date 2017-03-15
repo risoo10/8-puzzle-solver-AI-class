@@ -5,19 +5,21 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.PriorityQueue;
 
-/**
- * Created by Riso on 3/12/2017.
- */
 public class Algoritmus {
 
     private Stav pociatok;
     private Stav ciel;
     private Heurestika heurestika;
+    private Stav result;
 
     // Min halda ktora porovnava prvky v halde podla priority
     // priorita je ciselne ohodnotenie stavu, ktore vyhodnoti heurestika
     private Comparator<Stav> cmprtr = new PriorityComparator();
     private PriorityQueue<Stav> fronta = new PriorityQueue<>(cmprtr);
+
+    // Hash mapa generovanych stavov aby sme nezvazovali duplicitne stavy
+    private HashMap<String, Integer> hashMap = new LinkedHashMap<>();
+
 
 
 
@@ -29,23 +31,51 @@ public class Algoritmus {
 
 
     public void hladajRiesenie(){
-        // Vygeneruj vsetky nasledujuce stavy
-        Stav[] nasledovnici = pociatok.nasledovnici();
-        // Kazdy stav ohodnot heurestikou a pridaj do fronty, a zahashuj pre test originality
-        for(Stav s : nasledovnici){
-            if(s != null){
-                
-                s.setPriorita(heurestika.vyhodnotStav(s, ciel));
-                fronta.add(s);
-            }
-        }
-        while(!fronta.isEmpty()){
-            Stav s = fronta.poll();
 
+        // Pridame pociatocny stav do fronty
+        pociatok.setPriorita(heurestika.vyhodnotStav(pociatok, ciel));
+        pociatok.setPredchodca(null);
+        fronta.add(pociatok);
+
+        while(!fronta.isEmpty()) {
+            Stav stav = fronta.poll();
+
+            // Pomocne vypisy
+            System.out.println("fronta : "+ fronta.size());
+
+            // Ak je finalny stav
+            if (stav.getPriorita() == 0) {
+                result = stav;
+                return;
+            }
+
+            // Vygeneruj vsetky nasledujuce stavy
+            Stav[] nasledovnici = stav.nasledovnici();
+
+            // Kazdy stav ohodnot heurestikou a pridaj do fronty, a zahashuj pre test originality
+            for (Stav s : nasledovnici) {
+                if (s != null) {
+
+                    // Zahasuje novy stav alebo preskoci stav, ktory bol prehladavany
+                    if (hashMap.containsKey(s.unikatnyHash())) {
+                        continue;
+                    } else {
+                        hashMap.put(s.unikatnyHash(), 9);
+                    }
+
+                    // Nastavi prioritu stavu podla heurestiky a predchadzajuci stav
+                    s.setPriorita(heurestika.vyhodnotStav(s, ciel));
+                    s.setPredchodca(stav);
+                    fronta.add(s);
+                }
+            }
         }
     }
 
 
+    public Stav getResult() {
+        return result;
+    }
 }
 
 class PriorityComparator implements Comparator<Stav> {
