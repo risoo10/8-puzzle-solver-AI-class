@@ -6,24 +6,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER_LEFT" prefHeight="380.0" prefWidth="449.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-   <children>
-       <Label text="Vstupný stav (v tvare [1 2 3 4 5 6 7 0 9] 0-prazdne policko ):">
-    </Label>
-       <TextField fx:id="vstupnytext" />
-       <Label text="Výstupný stav: ">
-    </Label>
-       <TextField fx:id="vystupnytext">
-         </TextField>
-      <Label layoutX="30.0" layoutY="97.0" text="Heurestika :" />
-      <ComboBox fx:id="heurestikaBox" prefHeight="31.0" prefWidth="265.0" />
-       <Button onAction="#zacniVypocet" text="Hladaj riešenie !" />
-      <Label fx:id="outputLabel" prefHeight="82.0" prefWidth="409.0" textFill="#2c5cf5" wrapText="true">
-         <font>
-            <Font size="17.0" />
-         </font></Label>
-   </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+<SplitPane dividerPositions="0.5529265255292652" prefHeight="382.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <items>
+        <VBox alignment="CENTER_LEFT" prefHeight="380.0" prefWidth="444.0" spacing="10.0">
+            <children>
+                <Label text="Vstupný stav (v tvare [1 2 3 4 5 6 7 0 8] 0-prazdne políčko ):">
+                </Label>
+                <TextField fx:id="vstupnytext" />
+                <Label text="Výstupný stav: ">
+                </Label>
+                <TextField fx:id="vystupnytext">
+                </TextField>
+                <Label layoutX="30.0" layoutY="97.0" text="Heurestika :" />
+                <ComboBox fx:id="heurestikaBox" prefHeight="31.0" prefWidth="265.0" />
+                <Button onAction="#zacniVypocet" text="Hladaj riešenie !" />
+                <Label fx:id="outputLabel" prefHeight="82.0" prefWidth="409.0" textFill="#2c5cf5" wrapText="true">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+         <children>
+            <Label text="Postupnosť krokov:" />
+            <TextArea fx:id="vysledky" prefHeight="312.0" prefWidth="315.0" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+    </items>
+</SplitPane>

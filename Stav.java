@@ -13,6 +13,7 @@ public class Stav {
 
 
     private Stav predchodca;
+    private Operacia predOperacia;
     private int priorita;
 
     // Vstup je v tvare "(1 2 3 4 5 6 7 0 9)"
@@ -25,9 +26,10 @@ public class Stav {
         }
     }
 
-    public Stav(int[][] hlavolam, Stav predchodca){
+    public Stav(int[][] hlavolam, Stav predchodca, Operacia op){
         this.hlavolam = hlavolam;
         this.predchodca = predchodca;
+        this.predOperacia = op;
     }
 
     public Stav[] nasledovnici(){
@@ -43,7 +45,7 @@ public class Stav {
                     suradniceMedzera.y,
                     suradniceMedzera.x,
                     suradniceMedzera.y - 1
-            ), this);
+            ), this, Operacia.DOLE);
         } else {
             result[0] = null;
         }
@@ -55,7 +57,7 @@ public class Stav {
                     suradniceMedzera.y,
                     suradniceMedzera.x,
                     suradniceMedzera.y + 1
-            ), this);
+            ), this, Operacia.HORE);
         } else {
             result[1] = null;
         }
@@ -67,7 +69,7 @@ public class Stav {
                     suradniceMedzera.y,
                     suradniceMedzera.x - 1,
                     suradniceMedzera.y
-            ), this);
+            ), this, Operacia.VPRAVO);
         } else {
             result[2] = null;
         }
@@ -79,7 +81,7 @@ public class Stav {
                     suradniceMedzera.y,
                     suradniceMedzera.x + 1,
                     suradniceMedzera.y
-            ), this);
+            ), this, Operacia.VLAVO);
         } else {
             result[3] = null;
         }
@@ -135,6 +137,10 @@ public class Stav {
 
     public Stav getPredchodca() {
         return predchodca;
+    }
+
+    public String getPredOperacia() {
+        return predOperacia != null ? predOperacia.name() : " ";
     }
 
     public int[][] klonujVymen(int medzeraX, int medzeraY, int x2, int y2){

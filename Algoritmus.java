@@ -1,17 +1,15 @@
 package sample;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Algoritmus {
 
     private Stav pociatok;
     private Stav ciel;
     private Heurestika heurestika;
-    private Stav result;
     private Integer maxPocetStavov;
+    private Deque<Stav> vysledok = new ArrayDeque<>();
+
 
     // Min halda ktora porovnava prvky v halde podla priority
     // priorita je ciselne ohodnotenie stavu, ktore vyhodnoti heurestika
@@ -50,7 +48,7 @@ public class Algoritmus {
 
             // Ak je finalny stav
             if (stav.getPriorita() == 0) {
-                result = stav;
+                postupnostKrokov(stav);
                 return;
             }
 
@@ -77,14 +75,24 @@ public class Algoritmus {
         }
     }
 
+    // Rekurentne od posledneho stavu vygeneruje postupnost krokov
+    public void postupnostKrokov(Stav ciel){
+        Stav stav = ciel;
+        vysledok.addFirst(stav);
+        while(stav.getPredchodca() != null){
+            stav = stav.getPredchodca();
+            vysledok.addFirst(stav);
+        }
+    }
+
 
     public Integer pocetPrehladanychStavov(){
         return maxPocetStavov;
     }
 
 
-    public Stav getResult() {
-        return result;
+    public Deque<Stav> getVysledok() {
+        return vysledok;
     }
 }
 
