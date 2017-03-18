@@ -40,10 +40,8 @@ public class Algoritmus {
 
         while(!fronta.isEmpty()) {
 
-            // Maximalny pocet stavov
-            maxPocetStavov = Integer.max(maxPocetStavov, fronta.size());
-
             Stav stav = fronta.poll();
+            maxPocetStavov++;
 
 
             // Ak je finalny stav

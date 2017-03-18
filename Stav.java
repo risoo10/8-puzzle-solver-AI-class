@@ -100,15 +100,15 @@ public class Stav {
         return null;
     }
 
-    public void printHlavolam(){
+    public String printHlavolam(){
         String result = "";
         for(int i=0; i<3; i++){
             for(int j=0; j<3; j++){
                 result += hlavolam[i][j];
             }
-            result += '\n';
+            result += ' ';
         }
-        System.out.print(result);
+        return result;
     }
 
     public String unikatnyHash(){

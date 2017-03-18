@@ -20,7 +20,7 @@ public class ManhattanskaVzdialenostHeurestika implements Heurestika {
             Point cielPoz = ciel.suradnicePreCislovHlavolame(i);
 
             // Manhattansku vzdialenost vypocitame ako rozdiel x-ovych a y-vych suradnic pozicii v absolutnej hodnote
-            suma += Math.abs(aktPoz.x - cielPoz.x) - Math.abs(aktPoz.y - cielPoz.y);
+            suma += Math.abs(aktPoz.x - cielPoz.x) + Math.abs(aktPoz.y - cielPoz.y);
 
         }
 

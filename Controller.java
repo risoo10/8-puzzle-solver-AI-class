@@ -41,8 +41,16 @@ public class Controller {
         outputLabel.setText("Prebieha vypocet ...");
         vysledky.clear();
 
+        // Nastav zvolenu heurestiku z comboboxu
+        Heurestika heurestika;
+        if(heurestikaBox.getValue().toString().equals("Manhattanska vzdialenosť")){
+            heurestika = new ManhattanskaVzdialenostHeurestika();
+        } else {
+            heurestika = new RozdielnePozicieHeurestika();
+        }
+
         Algoritmus algo = new Algoritmus(
-                new ManhattanskaVzdialenostHeurestika(),
+                heurestika,
                 new Stav(vstupnytext.getText()),
                 new Stav(vystupnytext.getText())
         );
@@ -55,18 +63,19 @@ public class Controller {
         if(algo.getVysledok().isEmpty()){
             outputLabel.setText("Nenašlo sa riešenie! " +
                     "Prehladalo sa všetkých " + algo.pocetPrehladanychStavov() + " stavov. " +
-                    "Stavy ohodnotila " + heurestikaBox.getValue() + ".");
+                    "Stavy ohodnotila heurestika" + heurestikaBox.getValue() + ".");
         } else {
             Deque<Stav> riesenie = algo.getVysledok();
             int kroky = riesenie.size();
 
             outputLabel.setText("Našlo sa riešenie! " +
-                    "Na vyriešenie potrebujeme " + algo.getVysledok().size() + " krokov. " +
-                    "Stavy ohodnotila " + heurestikaBox.getValue() + ".");
+                    "Na vyriešenie potrebujeme " + (algo.getVysledok().size() - 1) + " krokov " +
+                    "a prehľadalo sa " + algo.pocetPrehladanychStavov() + " stavov. " +
+                    "Stavy ohodnotila heurestika" + heurestikaBox.getValue() + ".");
 
             for(int i=1; i<=kroky; i++ ){
                 Stav s = riesenie.removeFirst();
-                vysledky.appendText(i + ". - " + s.unikatnyHash() + " -> " + s.getPredOperacia()+ "\n");
+                vysledky.appendText(i + ".  " + s.getPredOperacia() + " -> " + s.printHlavolam() + "\n");
             }
         }
 
