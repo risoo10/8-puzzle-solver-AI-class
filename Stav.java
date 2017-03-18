@@ -2,6 +2,9 @@ package sample;
 
 import com.sun.xml.internal.fastinfoset.util.CharArray;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+
 public class Stav {
 
 
@@ -31,51 +34,51 @@ public class Stav {
         Stav[] result = new Stav[4];
 
         // Najdi suradnice medzery
-        int[] suradniceMedzera = suradnicePreCislovHlavolame(0);
+        Point suradniceMedzera = suradnicePreCislovHlavolame(0);
 
         // posun dole
-        if(suradniceMedzera[1] != 0){
+        if(suradniceMedzera.y != 0){
             result[0] = new Stav(klonujVymen(
-                    suradniceMedzera[0],
-                    suradniceMedzera[1],
-                    suradniceMedzera[0],
-                    suradniceMedzera[1] - 1
+                    suradniceMedzera.x,
+                    suradniceMedzera.y,
+                    suradniceMedzera.x,
+                    suradniceMedzera.y - 1
             ), this);
         } else {
             result[0] = null;
         }
 
         // posun hore
-        if(suradniceMedzera[1] != 2){
+        if(suradniceMedzera.y != 2){
             result[1] = new Stav(klonujVymen(
-                    suradniceMedzera[0],
-                    suradniceMedzera[1],
-                    suradniceMedzera[0],
-                    suradniceMedzera[1] + 1
+                    suradniceMedzera.x,
+                    suradniceMedzera.y,
+                    suradniceMedzera.x,
+                    suradniceMedzera.y + 1
             ), this);
         } else {
             result[1] = null;
         }
 
         // posun doprava
-        if(suradniceMedzera[0] != 0){
+        if(suradniceMedzera.x != 0){
             result[2] = new Stav(klonujVymen(
-                    suradniceMedzera[0],
-                    suradniceMedzera[1],
-                    suradniceMedzera[0] - 1,
-                    suradniceMedzera[1]
+                    suradniceMedzera.x,
+                    suradniceMedzera.y,
+                    suradniceMedzera.x - 1,
+                    suradniceMedzera.y
             ), this);
         } else {
             result[2] = null;
         }
 
         // posun dolava
-        if(suradniceMedzera[0] != 2){
+        if(suradniceMedzera.x != 2){
             result[3] = new Stav(klonujVymen(
-                    suradniceMedzera[0],
-                    suradniceMedzera[1],
-                    suradniceMedzera[0] + 1,
-                    suradniceMedzera[1]
+                    suradniceMedzera.x,
+                    suradniceMedzera.y,
+                    suradniceMedzera.x + 1,
+                    suradniceMedzera.y
             ), this);
         } else {
             result[3] = null;
@@ -84,14 +87,11 @@ public class Stav {
         return result;
     }
 
-    private int[] suradnicePreCislovHlavolame(int cislo){
-        int[] suradnice = new int[2];
+    public Point suradnicePreCislovHlavolame(int cislo){
         for(int y=0; y<3; y++){
             for(int x=0; x<3; x++){
                 if(hlavolam[y][x] == cislo){
-                    suradnice[0] = x;
-                    suradnice[1] = y;
-                    return suradnice;
+                    return new Point(x,y);
                 }
             }
         }
