@@ -8,8 +8,9 @@ public class Algoritmus {
     private Stav ciel;
     private Heurestika heurestika;
     private Integer maxPocetStavov;
-    private Deque<Stav> vysledok = new ArrayDeque<>();
 
+    // Zasobnik, ktory udrzi finálnu postupnost stavov ako riesenie
+    private Deque<Stav> vysledok = new ArrayDeque<>();
 
     // Min halda ktora porovnava prvky v halde podla priority
     // priorita je ciselne ohodnotenie stavu, ktore vyhodnoti heurestika
@@ -18,8 +19,6 @@ public class Algoritmus {
 
     // Hash mapa generovanych stavov aby sme nezvazovali duplicitne stavy
     private HashMap<String, Integer> hashMap = new LinkedHashMap<>();
-
-
 
 
     public Algoritmus(Heurestika heurestika, Stav pociatok, Stav ciel){
@@ -38,13 +37,15 @@ public class Algoritmus {
         pociatok.setPredchodca(null);
         fronta.add(pociatok);
 
+        //
         while(!fronta.isEmpty()) {
 
+            // Vyber najmensi prvok z haldy
             Stav stav = fronta.poll();
             maxPocetStavov++;
 
 
-            // Ak je finalny stav
+            // Ak je finalny stav a heurestika ohodntila stav s hodnotou 0
             if (stav.getPriorita() == 0) {
                 postupnostKrokov(stav);
                 return;
@@ -57,14 +58,14 @@ public class Algoritmus {
             for (Stav s : nasledovnici) {
                 if (s != null) {
 
-                    // Zahasuje novy stav alebo preskoci stav, ktory bol prehladavany
+                    // Zahasuje novy stav alebo preskoci stav, ktory uz niekedy bol prehladavany a zahashovany
                     if (hashMap.containsKey(s.unikatnyHash())) {
                         continue;
                     } else {
                         hashMap.put(s.unikatnyHash(), 9);
                     }
 
-                    // Nastavi prioritu stavu podla heurestiky a predchadzajuci stav
+                    // Nastavi prioritu stavu podla heurestiky a ulozi predchadzajuci stav
                     s.setPriorita(heurestika.vyhodnotStav(s, ciel));
                     s.setPredchodca(stav);
                     fronta.add(s);
@@ -94,6 +95,9 @@ public class Algoritmus {
     }
 }
 
+
+// Trieda definuje nové porovnávanie v prioritnej rade, podľa atribútu priorita v Stave
+// Každý stav je porvnávaný podľa priority, čím menšia priorita, tým prvšia pozícia vo fronte
 class PriorityComparator implements Comparator<Stav> {
 
     @Override

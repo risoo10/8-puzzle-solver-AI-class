@@ -7,15 +7,12 @@ import java.awt.geom.Point2D;
 
 public class Stav {
 
-
-
     private int[][] hlavolam = new int[3][3];
-
-
     private Stav predchodca;
     private Operacia predOperacia;
     private int priorita;
 
+    // Stav sa generuje zo vstupu od použivateľa.
     // Vstup je v tvare "(1 2 3 4 5 6 7 0 9)"
     // Nula predstavuje prazdne policko v hlavolame
     // Retazec rozdelime podla medzier a napasujeme do 2-rozmerneho pola
@@ -26,12 +23,15 @@ public class Stav {
         }
     }
 
+    // Generuje stav z vytvoreného 2-rozmerného pola
     public Stav(int[][] hlavolam, Stav predchodca, Operacia op){
         this.hlavolam = hlavolam;
         this.predchodca = predchodca;
         this.predOperacia = op;
     }
 
+    // Vygeneruje pole s maximalne 4 nasledovnikmi
+    // Nasimuluje pohyb policka hore, dole, vpravo, vlavo
     public Stav[] nasledovnici(){
         Stav[] result = new Stav[4];
 
@@ -89,6 +89,8 @@ public class Stav {
         return result;
     }
 
+    // Najde x a y suradnicu ocislovaneho policka
+    // Prehladava cele 2 rozmerne pole
     public Point suradnicePreCislovHlavolame(int cislo){
         for(int y=0; y<3; y++){
             for(int x=0; x<3; x++){
@@ -100,6 +102,8 @@ public class Stav {
         return null;
     }
 
+    // Vypise policka hlavolamu ako retazec cisiel
+    // Vypis je v tvare "123 456 780"
     public String printHlavolam(){
         String result = "";
         for(int i=0; i<3; i++){
@@ -111,6 +115,8 @@ public class Stav {
         return result;
     }
 
+    // VYgeneruje origiinalny retazec znakov pre reprezentaciu stavu
+    // Ma tvar "012345678"
     public String unikatnyHash(){
         String result = "";
         for(int i=0; i<3; i++){
@@ -143,6 +149,9 @@ public class Stav {
         return predOperacia != null ? predOperacia.name() : " ";
     }
 
+
+    // Nasimule pogyb políčka
+    // Vyklonuje nove pole, a vymení medzeru a zvolené policko podla suradnic
     public int[][] klonujVymen(int medzeraX, int medzeraY, int x2, int y2){
         int[][] novyHlavolam = new int[3][3];
 

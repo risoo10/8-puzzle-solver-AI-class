@@ -15,8 +15,8 @@ public class Controller {
 
     private ObservableList<String> moznosti =
             FXCollections.observableArrayList(
-                    "Manhattanska vzdialenosť",
-                    "Počet rozdielnych políčok"
+                    "2. Manhattanska vzdialenosť",
+                    "1. Počet rozdielnych políčok"
             );
     @FXML
     private TextField vstupnytext;
@@ -43,7 +43,7 @@ public class Controller {
 
         // Nastav zvolenu heurestiku z comboboxu
         Heurestika heurestika;
-        if(heurestikaBox.getValue().toString().equals("Manhattanska vzdialenosť")){
+        if(heurestikaBox.getValue().toString().equals("2. Manhattanska vzdialenosť")){
             heurestika = new ManhattanskaVzdialenostHeurestika();
         } else {
             heurestika = new RozdielnePozicieHeurestika();
@@ -63,7 +63,7 @@ public class Controller {
         if(algo.getVysledok().isEmpty()){
             outputLabel.setText("Nenašlo sa riešenie! " +
                     "Prehladalo sa všetkých " + algo.pocetPrehladanychStavov() + " stavov. " +
-                    "Stavy ohodnotila heurestika" + heurestikaBox.getValue() + ".");
+                    "Stavy ohodnotila heurestika " + heurestikaBox.getValue() + ".");
         } else {
             Deque<Stav> riesenie = algo.getVysledok();
             int kroky = riesenie.size();
@@ -71,7 +71,7 @@ public class Controller {
             outputLabel.setText("Našlo sa riešenie! " +
                     "Na vyriešenie potrebujeme " + (algo.getVysledok().size() - 1) + " krokov " +
                     "a prehľadalo sa " + algo.pocetPrehladanychStavov() + " stavov. " +
-                    "Stavy ohodnotila heurestika" + heurestikaBox.getValue() + ".");
+                    "Stavy ohodnotila heurestika " + heurestikaBox.getValue() + ".");
 
             for(int i=1; i<=kroky; i++ ){
                 Stav s = riesenie.removeFirst();
