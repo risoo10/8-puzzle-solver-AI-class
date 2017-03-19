@@ -90,24 +90,44 @@ Pre porovnanie, ktorá heurestická funkcia vie priemerne lepšie odhadnúť sta
 1. Scenár 
 - počiatok :  [ 0 1 2 ][ 3 4 5 ][ 6 7 8 ]          
 - cieľ :      [ 0 1 2 ][ 3 5 4 ][ 6 8 7 ]
+- heurestika 1: 32 krokov, 242 stavov
+- heurestika 2: 20 krokov, 437 stavov
+
 
 2. Scenár 
 - počiatok :  [ 1 2 3 ][ 4 5 6 ][ 7 8 0 ]          
-- cieľ :      [ 0 1 2 ][ 3 5 4 ][ 6 8 7 ]
+- cieľ :      [ 8 6 7 ][ 2 5 4 ][ 3 0 1 ]
+- heurestika 1: 97 krokov, 420 stavov
+- heurestika 2: 43 krokov, 74 stavov   
+    
 
 3. Scenár 
-- počiatok :  [ 1 2 3 ][ 4 5 6 ][ 7 8 0 ]          
-- cieľ :      [ 0 1 2 ][ 3 5 4 ][ 6 8 7 ]
+- počiatok :  [ 5 6 0 ][ 1 3 2 ][ 4 8 7 ]          
+- cieľ :      [ 0 6 5 ][ 4 3 8 ][ 2 1 7 ]
+- heurestika 1: 38 krokov, 250 stavov
+- heurestika 2: 94 krokov, 422 stavov
+
 
 4. Scenár 
-- počiatok :  [ 1 2 3 ][ 4 5 6 ][ 7 8 0 ]          
-- cieľ :      [ 0 1 2 ][ 3 5 4 ][ 6 8 7 ]
+- počiatok :  [ 3 4 7 ][ 0 8 6 ][ 5 2 1 ]          
+- cieľ :      [ 1 0 8 ][ 7 5 4 ][ 6 2 3 ]
+- heurestika 1: 114 krokov, 972 stavov
+- heurestika 2: 54 krokov, 320 stavov
+    
+    
+5. Scenár 
+- počiatok :  [ 2 7 6 ][ 0 5 4 ][ 8 3 1 ]          
+- cieľ :      [ 6 0 8 ][ 5 1 3 ][ 2 4 7 ]
+- heurestika 1: 54 krokov, 331 stavov
+- heurestika 2: 38 krokov, 57 stavov
 
 
 ## Zhodnotenie riešenia
+Ak riešenie neexistuje tak moja implementácia prehľadá všetky stavy a algoritmus skončí bez správneho riešenia. Ak však nájde správne riešenie tak do okna vypíše postup operácií a návod ako zo žiadaného stavu dospieť k cieľovému. Riešenie je úplne ale poskytuje len riešenie pre hlavolam rozmeru 3x3. Tento systém by sa dal rozšíriť pre systém m x n upravením natvrdo vpísaných dát a menšou modifikáciou. Práca na zadaní bola zaujimavá a som spokojný s výsledným spracovaním a formátom môjho riešenia.
+
 
 ### Použitá literatúra
-
+[1] NÁVRAT, P. a kol.: Umelá inteligencia. Vydavateľstvo STU Bratislava, 2007. ISBN 788-022-730-80-8.
 
 
 
