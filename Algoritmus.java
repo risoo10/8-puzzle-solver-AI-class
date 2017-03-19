@@ -2,7 +2,7 @@ package sample;
 
 import java.util.*;
 
-public class Algoritmus {
+public class   Algoritmus {
 
     private Stav pociatok;
     private Stav ciel;
